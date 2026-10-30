@@ -1,8 +1,8 @@
 // Where the early-access form sends sign-ups.
-// Paste a form endpoint here (for example a Formspree, Basin or Netlify form URL).
+// Paste your Formspree form URL here, e.g. 'https://formspree.io/f/abcdwxyz'.
 // Until it's set, the form opens the visitor's email app instead so no sign-up is lost.
 const SIGNUP_ENDPOINT = '';
-const FALLBACK_EMAIL = 'hello@icart.example'; // TODO: replace with the real contact address
+const FALLBACK_EMAIL = 'hello.icartau@gmail.com';
 
 // Mobile menu
 const toggle = document.querySelector('.nav-toggle');
