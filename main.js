@@ -62,7 +62,7 @@ form.addEventListener('submit', async (e) => {
     const res = await fetch(SIGNUP_ENDPOINT, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
     if (!res.ok) throw new Error(String(res.status));
     form.reset();
-    setStatus("You're on the list. We'll be in touch before launch.", 'ok');
+    setStatus("Done. You're on the list.", 'ok');
   } catch {
     setStatus('Something went wrong. Please try again in a moment.', 'err');
   } finally {
