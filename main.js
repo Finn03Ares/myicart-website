@@ -81,7 +81,26 @@ const MEALS = [
   { id: 'anzac', name: 'Anzac biscuits', note: 'Makes 20', fixed: true, items: [['Rolled oats', 150, 'g'], ['Plain flour', 150, 'g'], ['Butter', 125, 'g'], ['Golden syrup', 2, 'tbsp'], ['Desiccated coconut', 90, 'g'], ['Brown sugar', 150, 'g']] },
 ];
 
-const demoState = { people: 4, picked: new Set(['bolognese', 'tacos', 'banana']), ticked: new Set() };
+// Example shelf prices, roughly what a Brisbane supermarket charges. [pack size, pack price]
+// Items sold by weight use a 1 kg "pack" and are charged for the exact amount (byWeight).
+const PRICES = {
+  'Beef mince': [500, 7.00], 'Spaghetti': [500, 1.60], 'Tinned tomatoes': [1, 1.10], 'Brown onion': [1, 0.60],
+  'Garlic': [10, 1.00], 'Carrot': [1, 0.40], 'Taco shells': [12, 3.00], 'Cos lettuce': [1, 2.50], 'Tomatoes': [1, 0.90],
+  'Grated cheese': [250, 4.00], 'Chicken thigh': [1000, 15.00, true], 'Rice': [1000, 2.40], 'Broccoli': [1, 2.50],
+  'Capsicum': [1, 1.50], 'Soy sauce': [16, 2.50], 'Pumpkin': [1000, 3.90, true], 'Chicken stock': [1000, 2.20],
+  'Cream': [300, 2.60], 'Bananas': [1, 0.45], 'Self-raising flour': [1000, 1.80], 'Butter': [250, 5.50],
+  'Eggs': [12, 6.00], 'Brown sugar': [1000, 2.80], 'Rolled oats': [750, 2.20], 'Plain flour': [1000, 1.50],
+  'Golden syrup': [25, 4.20], 'Desiccated coconut': [250, 2.00],
+};
+
+function costOf(name, qty) {
+  const [size, price, byWeight] = PRICES[name];
+  return byWeight ? price * qty / size : Math.ceil(qty / size - 1e-9) * price;
+}
+
+const money = n => '$' + n.toFixed(2);
+
+const demoState = { people: 4, picked: new Set(['bolognese', 'tacos', 'banana', 'anzac']), ticked: new Set() };
 const mealBox = document.getElementById('meal-options');
 const itemList = document.getElementById('demo-items');
 const summary = document.getElementById('demo-summary');
@@ -127,10 +146,12 @@ function renderMeals() {
 
 function renderList() {
   const combined = new Map();
+  let separately = 0;
   for (const meal of MEALS) {
     if (!demoState.picked.has(meal.id)) continue;
     const scale = meal.fixed ? 1 : demoState.people / 4;
     for (const [name, qty, unit] of meal.items) {
+      separately += costOf(name, roundQty(qty * scale, unit));
       const key = name + '|' + unit;
       const entry = combined.get(key) || { name, unit, qty: 0, meals: 0 };
       entry.qty += qty * scale;
@@ -141,6 +162,7 @@ function renderList() {
 
   itemList.innerHTML = '';
   const nowShown = new Set();
+  let total = 0;
   if (!combined.size) {
     const li = document.createElement('li');
     li.className = 'empty';
@@ -168,16 +190,35 @@ function renderList() {
       shared.textContent = `Used in ${entry.meals} meals`;
       name.append(shared);
     }
+    const amount = roundQty(entry.qty, entry.unit);
     const qty = document.createElement('span');
     qty.className = 'qty';
-    qty.textContent = formatQty(roundQty(entry.qty, entry.unit), entry.unit);
-    label.append(box, name, qty);
+    qty.textContent = formatQty(amount, entry.unit);
+    const price = document.createElement('span');
+    price.className = 'price';
+    const cost = costOf(entry.name, amount);
+    total += cost;
+    price.textContent = money(cost);
+    label.append(box, name, qty, price);
     li.append(label);
     itemList.append(li);
   }
   shownItems = nowShown;
+  renderTotals(total, separately);
   for (const key of demoState.ticked) if (!nowShown.has(key)) demoState.ticked.delete(key);
   renderSummary(combined.size);
+}
+
+function renderTotals(total, separately) {
+  const meals = demoState.picked.size;
+  document.getElementById('demo-totals').hidden = !meals;
+  if (!meals) return;
+  document.getElementById('demo-total').textContent = money(total);
+  document.getElementById('demo-per-label').textContent = `Across ${meals} ${meals === 1 ? 'meal' : 'meals'}`;
+  document.getElementById('demo-per').textContent = `about ${money(total / meals)} each`;
+  const saving = separately - total;
+  document.getElementById('demo-saving-row').hidden = saving < 0.5;
+  document.getElementById('demo-saving').textContent = money(saving);
 }
 
 function renderSummary(total) {

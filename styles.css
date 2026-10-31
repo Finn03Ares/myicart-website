@@ -19,6 +19,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
 
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
@@ -166,6 +167,16 @@ section { scroll-margin-top: 120px; }
 .demo-items .empty { padding: 24px 0; color: var(--muted); }
 .demo-items li.new { animation: pop .35s ease-out; }
 @keyframes pop { from { background: rgba(30, 79, 216, .1); } to { background: transparent; } }
+.demo-items .price { min-width: 64px; text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+.demo-items input:checked ~ .price { color: var(--muted); }
+.demo-totals { margin: 16px 0 0; display: flex; flex-direction: column; gap: 6px; }
+.demo-totals div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.demo-totals dt { color: var(--muted); }
+.demo-totals dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
+.demo-totals div:first-child dt { color: var(--ink); font-weight: 700; }
+.demo-totals div:first-child dd { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
+.demo-saving { background: var(--accent); color: var(--ink); border-radius: 12px; padding: 10px 14px; margin-top: 6px; }
+.demo-saving dt { color: var(--ink) !important; font-weight: 700; }
 .demo-note { font-size: 14px; color: var(--muted); margin-top: 14px; }
 
 /* Email */

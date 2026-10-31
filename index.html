@@ -68,9 +68,9 @@
 
       <div>
         <div class="phone">
-          <img class="phone-shot" src="assets/app-meal-planner.jpg" width="390" height="844" alt="The iCart meal planner on a phone, showing Monday with overnight oats for breakfast, spaghetti bolognese for dinner and banana bread as a snack">
+          <img class="phone-shot" src="assets/app-home.jpg" width="390" height="844" alt="The iCart home screen on a phone: a $220 weekly budget with $128 priced so far, 10 items left to collect, and the household's shared shopping list">
         </div>
-        <p class="phone-caption">The iCart meal planner, with demo data.</p>
+        <p class="phone-caption">The iCart home screen, with demo data.</p>
       </div>
     </div>
   </section>
@@ -113,7 +113,7 @@
   <section class="section section-alt" id="try" aria-labelledby="try-title">
     <div class="wrap">
       <h2 id="try-title" class="section-title">Have a go</h2>
-      <p class="lede try-lede">Pick a few meals and see the shopping list put itself together. Ingredients that turn up in more than one meal are added up for you.</p>
+      <p class="lede try-lede">Pick a few meals and see the shopping list put itself together. Ingredients that turn up in more than one meal are bought once, so you're not paying for a second pack of butter you don't need.</p>
       <div class="demo">
         <div class="demo-pick">
           <div class="demo-people">
@@ -135,7 +135,12 @@
             <span id="demo-summary" class="paper-count" aria-live="polite"></span>
           </div>
           <ul id="demo-items" class="demo-items"></ul>
-          <p class="demo-note">Example meals and amounts. Tap an item to tick it off.</p>
+          <dl class="demo-totals" id="demo-totals">
+            <div><dt>Estimated total</dt><dd id="demo-total"></dd></div>
+            <div><dt id="demo-per-label">Per meal</dt><dd id="demo-per"></dd></div>
+            <div class="demo-saving" id="demo-saving-row"><dt>Saved by planning together</dt><dd id="demo-saving"></dd></div>
+          </dl>
+          <p class="demo-note">Example meals, amounts and prices. Real prices change week to week. Tap an item to tick it off.</p>
         </div>
       </div>
     </div>
