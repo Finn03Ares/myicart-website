@@ -317,3 +317,10 @@ section { scroll-margin-top: 120px; }
   html { scroll-behavior: auto; }
   .demo-items li.new { animation: none; }
 }
+
+/* 404 */
+.not-found { display: grid; grid-template-columns: 1.2fr .8fr; gap: 56px; align-items: center; padding-top: 48px; padding-bottom: 96px; }
+.not-found-copy { display: flex; flex-direction: column; gap: 20px; }
+.not-found-copy h1 { font-size: clamp(40px, 5.6vw, 64px); }
+.not-found-list .missing { display: flex; align-items: center; gap: 14px; padding: 14px 0 4px; font-weight: 600; color: var(--ink); }
+@media (max-width: 860px) { .not-found { grid-template-columns: 1fr; gap: 40px; padding-top: 24px; } }

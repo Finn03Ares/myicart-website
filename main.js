@@ -1,8 +1,5 @@
-// Where the early-access form sends sign-ups.
-// Paste your Formspree form URL here, e.g. 'https://formspree.io/f/abcdwxyz'.
-// Until it's set, the form opens the visitor's email app instead so no sign-up is lost.
-const SIGNUP_ENDPOINT = '';
-const FALLBACK_EMAIL = 'hello.icartau@gmail.com';
+// Where the early-access form sends sign-ups (Formspree).
+const SIGNUP_ENDPOINT = 'https://formspree.io/f/xljjwanz';
 
 // Mobile menu
 const toggle = document.querySelector('.nav-toggle');
@@ -36,7 +33,8 @@ form.addEventListener('submit', async (e) => {
   const data = new FormData(form);
   const email = String(data.get('email') || '').trim();
 
-  if (data.get('company')) return; // bot filled the hidden field
+  // Bots tend to fill every field, including the hidden _gotcha one. Formspree drops those too.
+  if (data.get('_gotcha')) return;
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     setStatus('Please enter a valid email address.', 'err');
     form.email.focus();
@@ -47,24 +45,16 @@ form.addEventListener('submit', async (e) => {
     return;
   }
 
-  if (!SIGNUP_ENDPOINT) {
-    const body = `Please add me to the iCart early-access list.\n\nEmail: ${email}\nSuburb: ${data.get('suburb') || '-'}\nHousehold size: ${data.get('household') || '-'}`;
-    window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent('iCart early access')}&body=${encodeURIComponent(body)}`;
-    setStatus('Your email app should open with your details. Just hit send.', 'ok');
-    return;
-  }
-
   const button = form.querySelector('button[type="submit"]');
   button.disabled = true;
   setStatus('Sending…');
   try {
-    data.delete('company');
     const res = await fetch(SIGNUP_ENDPOINT, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
     if (!res.ok) throw new Error(String(res.status));
     form.reset();
     setStatus("Done. You're on the list.", 'ok');
   } catch {
-    setStatus('Something went wrong. Please try again in a moment.', 'err');
+    setStatus("That didn't go through. Please try again, or email hello.icartau@gmail.com and we'll add you.", 'err');
   } finally {
     button.disabled = false;
   }
