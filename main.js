@@ -71,7 +71,7 @@ const MEALS = [
   { id: 'anzac', name: 'Anzac biscuits', note: 'Makes 20', fixed: true, items: [['Rolled oats', 150, 'g'], ['Plain flour', 150, 'g'], ['Butter', 125, 'g'], ['Golden syrup', 2, 'tbsp'], ['Desiccated coconut', 90, 'g'], ['Brown sugar', 150, 'g']] },
 ];
 
-// Example shelf prices, roughly what a Brisbane supermarket charges. [pack size, pack price]
+// Example shelf prices, roughly what a QLD supermarket charges. [pack size, pack price]
 // Items sold by weight use a 1 kg "pack" and are charged for the exact amount (byWeight).
 const PRICES = {
   'Beef mince': [500, 7.00], 'Spaghetti': [500, 1.60], 'Tinned tomatoes': [1, 1.10], 'Brown onion': [1, 0.60],
