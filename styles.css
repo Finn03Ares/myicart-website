@@ -84,10 +84,11 @@ p { margin: 0; }
   border: 1px solid var(--line); border-radius: var(--radius);
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
 }
-.wordmark { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
-.wordmark svg { width: 40px; height: 40px; }
+.wordmark { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #0B1F4D; }
+.wordmark svg, .wordmark img { width: 40px; height: 40px; }
 .wordmark span { font-family: var(--font-brand); font-size: 30px; font-weight: 800; letter-spacing: -1px; }
-.wordmark span b { color: var(--brand); font-weight: 800; }
+/* The logo's "i" is navy like the rest of the wordmark; the symbol carries the colour. */
+.wordmark span b { color: inherit; font-weight: 800; }
 .nav-links { display: flex; align-items: center; gap: 30px; font-size: 17px; font-weight: 600; }
 .nav-links a { text-decoration: none; }
 .nav-links .btn { min-height: 48px; padding: 12px 22px; font-size: 17px; }
@@ -189,7 +190,7 @@ section { scroll-margin-top: 120px; }
   min-height: 260px; padding: 32px; border-radius: var(--radius-lg); background: var(--canvas); border: 1px solid var(--line);
   display: flex; flex-direction: column; justify-content: space-between; gap: 32px;
 }
-.email-card .wordmark svg { width: 36px; height: 36px; }
+.email-card .wordmark svg, .email-card .wordmark img { width: 36px; height: 36px; }
 .email-card .wordmark span { font-size: 26px; }
 .email-card h3 { font-size: clamp(30px, 3.4vw, 38px); font-weight: 800; letter-spacing: -1px; line-height: 1.08; }
 .check-list { list-style: none; padding: 0; margin: 20px 0 0; display: flex; flex-direction: column; gap: 12px; }
@@ -214,7 +215,7 @@ section { scroll-margin-top: 120px; }
   box-shadow: 0 24px 48px -32px rgba(10, 26, 63, .4);
 }
 .paper-head { display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid var(--line); margin-bottom: 4px; }
-.paper-head .wordmark svg { width: 28px; height: 28px; }
+.paper-head .wordmark svg, .paper-head .wordmark img { width: 28px; height: 28px; }
 .paper-head .wordmark span { font-size: 22px; }
 .paper-count { font-size: 14px; font-weight: 600; color: var(--muted); }
 .paper-items { list-style: none; margin: 0; padding: 0; }
@@ -302,7 +303,7 @@ section { scroll-margin-top: 120px; }
   .wrap { padding: 0 16px; }
   .site-header { padding: 10px 0; }
   .wordmark span { font-size: 26px; }
-  .wordmark svg { width: 34px; height: 34px; }
+  .wordmark svg, .wordmark img { width: 34px; height: 34px; }
   .steps { grid-template-columns: 1fr; }
   .hero-actions .btn { width: 100%; }
   .paper { padding: 18px; }
